@@ -17,7 +17,7 @@ all: ${TARGET}.bin
 	$(OBJCOPY) $< $@ -O binary
 
 ${TARGET}.elf: ${OBJS} stm32f030f4p6.ld
-	$(LD) ${OBJS} -T stm32f030f4p6.ld -o $@
+	$(LD) ${OBJS} --print-memory-usage -T stm32f030f4p6.ld -o $@
 	$(SIZE) $@
 
 %.o: %.S
