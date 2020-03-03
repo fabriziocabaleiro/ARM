@@ -1,5 +1,5 @@
 .global _start
-.section .text._start
+.section .init
 _start:
 	.org  0x00000000
 	/* RM0360 Section 2.5 top-of-stack */

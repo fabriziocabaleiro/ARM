@@ -46,16 +46,6 @@ all: ${TARGET}.bin
 stm32f030f4p6.ld: stm32f030f4p6_memory.ld
 	cp $< $@
 	$(LD) --verbose | sed -n '/^=\{50\}/,/^=\{50\}/p' | sed '1d;$$d' >> $@
-	# Set _start as first subsection of .text, after sed, it should look like:
-	#  .text           :
-	#  {
-	#    *(.text._start)
-	# By having _start as first subsection and specifying the same
-	# subsection in start.S, then we can guarantee that the top-of-stack
-	# and reset interrupt vector are set properly.
-	sed -i '/^ *\.text *:$$/{n;s/\(.*\)/\1\n    *(.text._start)/}' $@
-	# Checking text section
-	grep -A3 '^ *.text *:' $@
 
 ifeq (${LINKER}, gcc)
     SPACE := $(null) #
